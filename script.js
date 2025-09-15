@@ -220,11 +220,11 @@ if (ok) {
   vibrate(15);
   result.hidden = false;
   result.innerHTML =
-    `✅ <strong>전송 완료!</strong><br>` +
-    `입장 시간 <strong>${slotStr}</strong><br>` +
-    `<strong>총 금액: ${fmt(totalAmt)}원</strong><br>` +
-    `성인 ${adult}명 × ${fmt(PRICE.adult)}원 = ${fmt(adultAmt)}원<br>` +
-    `청소년 ${youth}명 × ${fmt(PRICE.youth)}원 = ${fmt(youthAmt)}원`;
+    `✅ <strong>전송 완료!</strong><br>` 
+    // `입장 시간 <strong>${slotStr}</strong><br>` +
+    // `<strong>총 금액: ${fmt(totalAmt)}원</strong><br>` +
+    // `성인 ${adult}명 × ${fmt(PRICE.adult)}원 = ${fmt(adultAmt)}원<br>` +
+    // `청소년 ${youth}명 × ${fmt(PRICE.youth)}원 = ${fmt(youthAmt)}원`;
   showSnack('예약 정보가 전송되었습니다.', 'ok', 2000);
 
   // --- 전체 리셋 ---
