@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+  />
+  <meta name="theme-color" content="#0a6cff" />
+  <title>점핑배틀 · 빠른 예약</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <header class="appbar">
+      <div class="appbar__title">점핑배틀 · 빠른 예약</div>
+    </header>
+
+    <form id="reservationForm" class="form-grid" novalidate>
+      <!-- 숨김값 -->
+      <input type="hidden" id="walkInTime" name="walkInTime" />
+      <input type="hidden" id="roomSize" name="roomSize" required />
+      <input type="hidden" id="difficulty" name="difficulty" required />
+
+      <!-- 1. 방 선택 -->
+      <section class="card">
+        <h3><span class="step">1</span> 방 선택</h3>
+        <div class="seg-row scroll-x room-buttons" role="radiogroup" aria-label="방 선택">
+          <button type="button" class="seg" data-value="B1" role="radio" aria-checked="false">대형 B1</button>
+          <button type="button" class="seg" data-value="A1" role="radio" aria-checked="false">중형 A1</button>
+          <button type="button" class="seg" data-value="C1" role="radio" aria-checked="false">소형 C1</button>
+          <button type="button" class="seg" data-value="C2" role="radio" aria-checked="false">소형 C2</button>
+        </div>
+        <p class="hint">관리자가 선택해드릴 수 있어요. 아무거나 선택하셔도 됩니다.</p>
+      </section>
+
+      <!-- 2. 인원 · 팀명 -->
+      <section class="card">
+        <h3><span class="step">2</span> 인원 · 팀명</h3>
+
+        <div class="counter-row">
+          <label class="counter">
+            <span class="counter__label">성인</span>
+            <div class="counter__ctrl">
+              <button type="button" class="btn-ghost minus" data-target="adultCount" aria-label="성인 -1">−</button>
+              <input type="number" id="adultCount" name="adultCount" min="0" inputmode="numeric" value="0" />
+              <button type="button" class="btn-ghost plus" data-target="adultCount" aria-label="성인 +1">＋</button>
+            </div>
+          </label>
+
+          <label class="counter">
+            <span class="counter__label">청소년·어린이</span>
+            <div class="counter__ctrl">
+              <button type="button" class="btn-ghost minus" data-target="youthCount" aria-label="청소년 -1">−</button>
+              <input type="number" id="youthCount" name="youthCount" min="0" inputmode="numeric" value="0" />
+              <button type="button" class="btn-ghost plus" data-target="youthCount" aria-label="청소년 +1">＋</button>
+            </div>
+          </label>
+        </div>
+
+        <div class="chips-row">
+          <button type="button" class="chip preset" data-adult="1" data-youth="1">1+1</button>
+          <button type="button" class="chip preset" data-adult="2" data-youth="1">2+1</button>
+          <button type="button" class="chip preset" data-adult="2" data-youth="2">2+2</button>
+          <button type="button" class="chip preset" data-adult="3" data-youth="2">3+2</button>
+        </div>
+
+        <div class="auto-teamname">
+          <label class="teamname-label" for="teamName">
+            팀명
+            <button type="button" id="generateTeamNameBtn" class="tiny-btn">자동 생성</button>
+          </label>
+          <input type="text" id="teamName" name="teamName" placeholder="팀명을 입력하세요" required />
+        </div>
+      </section>
+
+      <!-- 3. 난이도 -->
+      <section class="card">
+        <h3><span class="step">3</span> 난이도</h3>
+        <div class="difficulty-buttons" role="radiogroup" aria-label="난이도 선택">
+          <button type="button" class="diff" data-value="ㅂ베이직" role="radio" aria-checked="false">
+            <span class="label">베이직 ★</span>
+            <span class="desc">(👶 처음 · 아이와 함께)</span>
+          </button>
+          <button type="button" class="diff" data-value="ㄹ여름" role="radio" aria-checked="false">
+            <span class="label">여름 ★½</span>
+            <span class="desc">(😎 여름 테마)</span>
+          </button>
+          <button type="button" class="diff" data-value="ㅇ이지" role="radio" aria-checked="false">
+            <span class="label">이지 ★★</span>
+            <span class="desc">(😉 처음이지만 센스 있음)</span>
+          </button>
+          <button type="button" class="diff" data-value="ㅅ우주" role="radio" aria-checked="false">
+            <span class="label">우주 ★★½</span>
+            <span class="desc">(🌌 도전 의지 충만)</span>
+          </button>
+          <button type="button" class="diff" data-value="ㄴ노멀" role="radio" aria-checked="false">
+            <span class="label">노멀 ★★★</span>
+            <span class="desc">(💪 운동 좀 함)</span>
+          </button>
+          <button type="button" class="diff" data-value="ㅎ하드" role="radio" aria-checked="false">
+            <span class="label">하드 ★★★★</span>
+            <span class="desc">(🥵 꽤 어려움)</span>
+          </button>
+          <button type="button" class="diff" data-value="ㅊ챌린저" role="radio" aria-checked="false">
+            <span class="label">챌린저 ★★★★★</span>
+            <span class="desc">(🏆 최상 난이도)</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. 차량번호 & 입장 슬롯 -->
+      <section class="card">
+        <h3><span class="step">4</span> 차량번호 · 입장 시간</h3>
+        <label class="field">
+          <span class="field__label">차량번호(뒤 4자리 · 선택)</span>
+          <input
+            type="text"
+            id="vehicle"
+            name="vehicle"
+            placeholder="0000"
+            inputmode="numeric"
+            pattern="[0-9]{0,4}"
+            maxlength="4"
+          />
+        </label>
+
+        <div class="subcard">
+          <div class="subcard__title">입장 시간</div>
+          <div class="seg-row time-row" role="radiogroup" aria-label="입장 시간">
+            <button type="button" class="seg time-opt" data-offset="0" role="radio" aria-checked="true">지금</button>
+            <button type="button" class="seg time-opt" data-offset="1" role="radio" aria-checked="false">다음</button>
+            <button type="button" class="seg time-opt" data-offset="2" role="radio" aria-checked="false">다다음</button>
+          </div>
+          <p class="hint" id="timeHint">가장 가까운 20분 단위로 맞춰드려요.</p>
+        </div>
+      </section>
+
+      <!-- 스낵바 영역 -->
+      <div id="snackbar" role="status" aria-live="polite"></div>
+
+      <!-- 화면 리더용 안내 -->
+      <div id="liveRegion" class="sr-only" aria-live="polite"></div>
+
+      <!-- 여백: 아래 스티키 바 가리지 않도록 -->
+      <div style="height: 88px;"></div>
+    </form>
+  </main>
+
+  <!-- 하단 스티키 요약/결제 바 -->
+  <footer class="stickybar" aria-label="요약 및 제출">
+    <div class="stickybar__price">
+      <div class="price__title">예상 결제금액</div>
+      <div class="price__value"><span id="priceText">0</span>원</div>
+      <div class="price__detail" id="priceDetail">성인 0 × 7,000 + 청소년 0 × 5,000</div>
+    </div>
+    <button type="button" id="submitBtn" class="btn-primary">
+      <span class="btn__label">최종 완료</span>
+      <span class="btn__spinner" aria-hidden="true"></span>
+    </button>
+  </footer>
+
+  <!-- 결과 패널 -->
+  <section id="result" class="result" hidden></section>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
