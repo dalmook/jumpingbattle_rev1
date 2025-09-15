@@ -216,18 +216,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const youthAmt = youth * PRICE.youth;
     const totalAmt = adultAmt + youthAmt;
 
-    if (ok) {
-      vibrate(15);
-      result.hidden = false;
-      result.innerHTML =
-        `✅ <strong>전송 완료!</strong><br>` +
-        `입장 시간 <strong>${slotStr}</strong><br>` +
-        `<strong>총 금액: ${fmt(totalAmt)}원</strong><br>` +
-        `성인 ${adult}명 × ${fmt(PRICE.adult)}원 = ${fmt(adultAmt)}원<br>` +
-        `청소년 ${youth}명 × ${fmt(PRICE.youth)}원 = ${fmt(youthAmt)}원`;
-      showSnack('예약 정보가 전송되었습니다.', 'ok');
-    } else {
-      showSnack('전송에 실패했습니다. 네트워크 상태를 확인 후 다시 시도해주세요.', 'error', 2500);
-    }
+if (ok) {
+  vibrate(15);
+  result.hidden = false;
+  result.innerHTML =
+    `✅ <strong>전송 완료!</strong><br>` +
+    `입장 시간 <strong>${slotStr}</strong><br>` +
+    `<strong>총 금액: ${fmt(totalAmt)}원</strong><br>` +
+    `성인 ${adult}명 × ${fmt(PRICE.adult)}원 = ${fmt(adultAmt)}원<br>` +
+    `청소년 ${youth}명 × ${fmt(PRICE.youth)}원 = ${fmt(youthAmt)}원`;
+  showSnack('예약 정보가 전송되었습니다.', 'ok');
+
+  // --- 전체 리셋 ---
+  form.reset();                     // 입력값 초기화
+  $('#walkInTime').value = '';      // 숨김값도 초기화
+  // 선택 토글 해제
+  roomButtons.forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-checked','false'); });
+  diffButtons.forEach(b => { b.classList.remove('selected'); b.setAttribute('aria-checked','false'); });
+  $('#roomSize').value = '';
+  $('#difficulty').value = '';
+  // 가격 영역 초기화
+  priceText.textContent = '0';
+  priceDetail.textContent = `성인 0 × ${fmt(PRICE.adult)} + 청소년 0 × ${fmt(PRICE.youth)}`;
+  // draft 삭제
+  try { localStorage.removeItem(STORAGE_KEY); } catch {}
+  // 필요 시 화면 맨 위로
+  // window.scrollTo({ top: 0, behavior: 'smooth' });
+} else {
+  showSnack('전송에 실패했습니다. 네트워크 상태를 확인 후 다시 시도해주세요.', 'error', 2500);
+}
+
   });
 });
