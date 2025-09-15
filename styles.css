@@ -120,6 +120,21 @@ body{
 }
 .btn-ghost:active{transform:scale(0.98)}
 
+/* - 버튼: 연한 분홍 파스텔 */
+.btn-ghost.minus{
+  background:#ffe4ec;    /* 파스텔 핑크 */
+  border-color:#f9c5d5;
+  color:#b23a5a;
+}
+
+/* + 버튼: 연한 파랑 파스텔 */
+.btn-ghost.plus{
+  background:#e0f0ff;    /* 파스텔 블루 */
+  border-color:#b5d6f5;
+  color:#0a4c8c;
+}
+
+
 /* 팀명/차량번호 입력 높이 키움 */
 input[type="text"],
 input[type="number"]{
