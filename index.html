@@ -17,7 +17,7 @@
     </header>
 
     <form id="reservationForm" class="form-grid" novalidate>
-      <!-- 숨김값 -->
+      <!-- 숨김값: 입장시간은 UI에서 선택 제거, 제출 시 자동 계산 -->
       <input type="hidden" id="walkInTime" name="walkInTime" />
       <input type="hidden" id="roomSize" name="roomSize" required />
       <input type="hidden" id="difficulty" name="difficulty" required />
@@ -56,13 +56,6 @@
               <button type="button" class="btn-ghost plus" data-target="youthCount" aria-label="청소년 +1">＋</button>
             </div>
           </label>
-        </div>
-
-        <div class="chips-row">
-          <button type="button" class="chip preset" data-adult="1" data-youth="1">1+1</button>
-          <button type="button" class="chip preset" data-adult="2" data-youth="1">2+1</button>
-          <button type="button" class="chip preset" data-adult="2" data-youth="2">2+2</button>
-          <button type="button" class="chip preset" data-adult="3" data-youth="2">3+2</button>
         </div>
 
         <div class="auto-teamname">
@@ -109,9 +102,9 @@
         </div>
       </section>
 
-      <!-- 4. 차량번호 & 입장 슬롯 -->
+      <!-- 4. 차량번호 -->
       <section class="card">
-        <h3><span class="step">4</span> 차량번호 · 입장 시간</h3>
+        <h3><span class="step">4</span> 차량번호</h3>
         <label class="field">
           <span class="field__label">차량번호(뒤 4자리 · 선택)</span>
           <input
@@ -124,30 +117,18 @@
             maxlength="4"
           />
         </label>
-
-        <div class="subcard">
-          <div class="subcard__title">입장 시간</div>
-          <div class="seg-row time-row" role="radiogroup" aria-label="입장 시간">
-            <button type="button" class="seg time-opt" data-offset="0" role="radio" aria-checked="true">지금</button>
-            <button type="button" class="seg time-opt" data-offset="1" role="radio" aria-checked="false">다음</button>
-            <button type="button" class="seg time-opt" data-offset="2" role="radio" aria-checked="false">다다음</button>
-          </div>
-          <p class="hint" id="timeHint">가장 가까운 20분 단위로 맞춰드려요.</p>
-        </div>
       </section>
 
-      <!-- 스낵바 영역 -->
+      <!-- 스낵바 -->
       <div id="snackbar" role="status" aria-live="polite"></div>
-
-      <!-- 화면 리더용 안내 -->
       <div id="liveRegion" class="sr-only" aria-live="polite"></div>
 
-      <!-- 여백: 아래 스티키 바 가리지 않도록 -->
+      <!-- 아래 스티키 바 영역 확보 -->
       <div style="height: 88px;"></div>
     </form>
   </main>
 
-  <!-- 하단 스티키 요약/결제 바 -->
+  <!-- 하단 스티키 요약/제출 -->
   <footer class="stickybar" aria-label="요약 및 제출">
     <div class="stickybar__price">
       <div class="price__title">예상 결제금액</div>
