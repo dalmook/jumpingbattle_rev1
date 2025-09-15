@@ -19,6 +19,7 @@ body{
   margin:0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans KR", Arial, sans-serif;
   color:var(--ink);
+  overflow-x:hidden; /* 예기치 않은 가로 스크롤 차단 */
   background:var(--bg) url('jumpingbattle_character_bg.jpg') no-repeat top center / cover fixed;
 }
 
@@ -85,22 +86,32 @@ body{
 .counter-row{
   display:grid; grid-template-columns:1fr 1fr; gap:10px;
 }
-@media (max-width:420px){
-  /* 매우 좁은 화면에서는 1열로 떨어져 넘침 방지 */
-  .counter-row{grid-template-columns:1fr;}
+/* 기존: @media (max-width:420px) {...} */
+@media (max-width:520px){
+  .counter-row{grid-template-columns:1fr;} /* 초소형~중소형에서도 1열 */
 }
+
 .counter{display:flex; flex-direction:column; gap:6px; min-width:0;}
 .counter__label{font-weight:700;}
+/* 변경 후: 버튼-입력-버튼 3열 그리드로, 입력은 가변폭 */
 .counter__ctrl{
-  display:flex; align-items:center; gap:8px; min-width:0; /* 컨테이너가 좁을 때도 줄바꿈 없이 축소 */
+  display:grid;
+  grid-template-columns: 44px 1fr 44px; /* 좌 버튼 / 입력 / 우 버튼 */
+  gap:8px;
+  align-items:center;
+  min-width:0; /* 부모가 좁아져도 내부 축소 허용 */
 }
+
 .counter__ctrl input{
-  flex:0 0 auto;
-  width:84px; /* 줄어든 폭으로 넘침 방지 */
-  text-align:center; font-size:1.2rem;
+  width:100%;         /* 고정폭(84px) → 가변폭 */
+  min-width:0;
+  text-align:center;
+  font-size:1.2rem;
   padding:14px 10px;
-  border:1px solid var(--border); border-radius:10px;
+  border:1px solid var(--border);
+  border-radius:10px;
 }
+
 
 /* +/- 버튼은 고정 크기(터치 타깃 44+) */
 .btn-ghost{
